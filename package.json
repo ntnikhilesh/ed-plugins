@@ -1,0 +1,27 @@
+{
+  "name": "typscriptconfig",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "rxjs": "^6.5.5",
+    "rxjs-compat": "^6.6.6",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack-dev-server": "^3.11.1"
+  },
+  "devDependencies": {
+    "@types/rx": "^4.1.2",
+    "expose-loader": "^1.0.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1"
+  }
+}

@@ -1,0 +1,25 @@
+.ed-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.ed-logo {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.ed-frame-count-container{
+  color: blue;
+  font-size: 50px;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 0;
+  opacity: 1;
+  cursor: pointer;
+}
