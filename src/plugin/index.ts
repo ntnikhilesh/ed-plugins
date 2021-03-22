@@ -1,4 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import firebase from 'firebase/app';
+import 'firebase/database';
+
 
 
 // start setup
@@ -8,6 +11,11 @@ export const setup = (videoId: string) => {
   const overlay = new Overlay(videoId);
   edVideo.showCurrentFrame();
   const sharedBus = new SharedBus(videoId, edVideo, overlay);
+
+  const database = new Database();
+  database.dbConfig();
+  database.addUser();
+
 }
 // end setup
 
@@ -111,6 +119,50 @@ class Overlay {
 
 }
 // // end Overlay
+
+
+// start Database
+class Database {
+  constructor() {
+    console.log("Database...");
+  }
+
+  // start dbConfig
+  dbConfig() {
+    console.log("dbConfig...");
+    var firebaseConfig = {
+      apiKey: "AIzaSyAJGVC-adum8xDKuGt9dju743sf10qXicc",
+      authDomain: "ed-test-1.firebaseapp.com",
+      projectId: "ed-test-1",
+      storageBucket: "ed-test-1.appspot.com",
+      messagingSenderId: "963017543930",
+      appId: "1:963017543930:web:8cf4ce1038ea4ae3a8b943",
+      measurementId: "G-F4HQM66D22"
+    };
+    var app = firebase.initializeApp(firebaseConfig);
+
+  }
+  // end dbConfig
+
+  addUser() {
+    console.log("addUser...");
+    let userId = (new Date()).getTime();
+    firebase.database().ref('users/' + userId).set({
+      username: "nikhil" + new Date().toISOString(),
+      email: "nikhilesh@edisn.ai"
+    }, (error) => {
+      if (error) {
+        console.log("write failed:", error);
+        // The write failed...
+      } else {
+        // Data saved successfully!
+        console.log("Data saved successfully! " + userId);
+      }
+    });
+  }
+
+}
+// end Database
 
 
 
