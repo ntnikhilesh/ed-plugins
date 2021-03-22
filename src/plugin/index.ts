@@ -1,19 +1,13 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
-
 // start setup
 export const setup = (videoId: string) => {
 
   const edVideo = new EdVideo(videoId);
+  const overlay = new Overlay(videoId);
   edVideo.showCurrentFrame();
-
-  setTimeout(() => {
-     const sharedBus = new SharedBus(videoId);
-     console.log("sharedBus is active now...");
-    }, 3000);
-
-  // const sharedBus = new SharedBus(videoId);
+  const sharedBus = new SharedBus(videoId, edVideo, overlay);
 }
 // end setup
 
@@ -23,11 +17,6 @@ class EdVideo {
   public currentFrame = new BehaviorSubject(0);
   constructor(videoID: string) {
     console.log("EdVideo: ", videoID);
-    const overlay = new Overlay(videoID);
-    this.getCurrentFrame().subscribe(getCurrentFrameDetail => {
-      console.log("getCurrentFrameDetail EdVideo:", getCurrentFrameDetail);
-      overlay.showUpdatedFrameNumber(getCurrentFrameDetail);
-    })
   }
 
   showCurrentFrame() {
@@ -66,13 +55,11 @@ class EdVideo {
 
 // // start SharedBus
 class SharedBus {
-  constructor(videoID: string) {
+  constructor(videoID: string, private edVideo: EdVideo, private overlay: Overlay) {
     console.log("SharedBus: ", videoID);
-    let edVideo = new EdVideo(videoID);
-    const overlay = new Overlay(videoID);
-    edVideo.getCurrentFrame().subscribe(getCurrentFrameDetail => {
-      console.log("getCurrentFrameDetail SharedBus:", getCurrentFrameDetail);
-      overlay.showUpdatedFrameNumber(getCurrentFrameDetail);
+    this.edVideo.getCurrentFrame().subscribe(getCurrentFrameDetail => {
+      console.log("getCurrentFrameDetail SharedBus::", getCurrentFrameDetail);
+      this.overlay.showUpdatedFrameNumber(getCurrentFrameDetail);
     })
   }
 
